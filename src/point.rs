@@ -2,7 +2,7 @@ use raylib::color::Color;
 use raylib::drawing::RaylibDrawHandle;
 use raylib::prelude::RaylibDraw;
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub struct Point {
     pub x: f32,
     pub y: f32,

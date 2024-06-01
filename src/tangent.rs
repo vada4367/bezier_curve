@@ -2,7 +2,7 @@ use crate::{point::Point, TANGENT_CIRCLE_R, TANGENT_COLOR};
 use raylib::drawing::RaylibDrawHandle;
 use raylib::prelude::RaylibDraw;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct Tangent {
     pub p1: Point,
     pub p2: Point,

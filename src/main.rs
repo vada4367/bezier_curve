@@ -154,5 +154,7 @@ fn main() {
         for tangent in &bezier_curve_tangents {
             tangent.draw_to_window(&mut d);
         }
+
+        println!("{:?}", bezier_curve_tangents);
     }
 }
