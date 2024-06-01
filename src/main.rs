@@ -14,16 +14,16 @@ use tangent::Tangent;
 pub const WIDTH: i32 = 800;
 pub const HEIGHT: i32 = 600;
 
-pub const ACCURACY: usize = 20;
+pub const ACCURACY: usize = 15;
 
-pub const TANGENT_CIRCLE_R: f32 = 10f32;
-pub const POINT_R: f32 = 5f32;
+pub const TANGENT_CIRCLE_R: f32 = ((WIDTH * WIDTH + HEIGHT * HEIGHT) / 100000) as f32;
+pub const POINT_R: f32 = ((WIDTH * WIDTH + HEIGHT * HEIGHT) / 200000) as f32;
 
 pub const TANGENT_COLOR: Color = Color::RED;
 pub const POINT_COLOR: Color = Color::WHITE;
 
-pub const NEW_TANGENT_SIZE: f32 = 100f32;
-pub const NEW_TANGENT_SIZE_HALF: f32 = NEW_TANGENT_SIZE * 0.5f32;
+pub const NEW_TANGENT_SIZE: f32 = ((WIDTH * WIDTH + HEIGHT * HEIGHT) / 10000) as f32;
+pub const NEW_TANGENT_SIZE_HALF: f32 = NEW_TANGENT_SIZE / 2f32;
 
 fn main() {
     let (mut rl, thread) = raylib::init()
@@ -72,8 +72,10 @@ fn main() {
         if unsafe { raylib::ffi::IsMouseButtonDown(0) } {
             for (i, tangent) in bezier_curve_tangents.iter().enumerate() {
                 for point in 0..tangent.as_array().len() {
-                    if (tangent.as_array()[point].x - mouse_x).powf(2f32)
-                        + (tangent.as_array()[point].y - mouse_y).powf(2f32)
+                    if (tangent.as_array()[point].x - mouse_x)
+                        * (tangent.as_array()[point].x - mouse_x)
+                        + (tangent.as_array()[point].y - mouse_y)
+                            * (tangent.as_array()[point].y - mouse_y)
                         < TANGENT_CIRCLE_R * TANGENT_CIRCLE_R
                     {
                         change_point = Some(i * 3 + point);
@@ -86,16 +88,17 @@ fn main() {
 
         if unsafe { raylib::ffi::IsMouseButtonPressed(0) } && change_point.is_none() {
             for (i, point) in curve.iter().enumerate() {
-                if (point.x - mouse_x).powf(2f32) + (point.y - mouse_y).powf(2f32)
-                    < min_dst.powf(2f32)
+                if (point.x - mouse_x) * (point.x - mouse_x)
+                    + (point.y - mouse_y) * (point.y - mouse_y)
+                    < min_dst * min_dst
                 {
-                    min_dst = ((point.x - mouse_x).powf(2f32) + (point.y - mouse_y).powf(2f32))
-                        .powf(0.5f32);
+                    min_dst = (point.x - mouse_x) * (point.x - mouse_x)
+                        + (point.y - mouse_y) * (point.y - mouse_y);
                     main_point_i = Some(i);
                 }
             }
 
-            if min_dst < POINT_R {
+            if min_dst < POINT_R * POINT_R {
                 let main_point = curve[main_point_i.unwrap()];
                 let previous_point =
                     if main_point_i.unwrap() >= 1 && curve.len() > main_point_i.unwrap() - 1 {
@@ -125,7 +128,7 @@ fn main() {
             }
         } else {
             new_tangent = None;
-            min_dst = POINT_R + 1f32;
+            min_dst = POINT_R * POINT_R + 1f32;
             main_point_i = None;
         }
         if unsafe { raylib::ffi::IsMouseButtonPressed(1) } {

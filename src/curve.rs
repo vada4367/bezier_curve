@@ -1,5 +1,6 @@
 use crate::{point::Point, tangent::Tangent, ACCURACY, POINT_COLOR, POINT_R};
 use raylib::drawing::RaylibDrawHandle;
+use raylib::prelude::RaylibDraw;
 
 pub fn dots_to_curve(points: &Vec<Point>) -> Option<Vec<Point>> {
     let mut result = Vec::new();
@@ -32,14 +33,41 @@ pub fn dots_to_curve_at_time(points: &Vec<Point>, time: f32) -> Option<Vec<Point
 }
 
 pub fn draw_dots_as_curve(points: &Vec<Point>, d: &mut RaylibDrawHandle<'_>) {
-    for dot in dots_to_curve(points).unwrap() {
-        dot.draw_to_window(POINT_R, POINT_COLOR, d);
+    let curve = dots_to_curve(points).unwrap();
+    for dot in 0..curve.len() - 1 {
+        //dot.draw_to_window(POINT_R, POINT_COLOR, d);
+
+        d.draw_line_ex(
+            raylib::ffi::Vector2 {
+                x: curve[dot].x,
+                y: curve[dot].y,
+            },
+            raylib::ffi::Vector2 {
+                x: curve[dot + 1].x,
+                y: curve[dot + 1].y,
+            },
+            POINT_R,
+            POINT_COLOR,
+        );
     }
 }
 
 pub fn draw_curve(curve: &Vec<Point>, d: &mut RaylibDrawHandle<'_>) {
-    for dot in curve {
-        dot.draw_to_window(POINT_R, POINT_COLOR, d);
+    for dot in 0..curve.len() - 1 {
+        //dot.draw_to_window(POINT_R, POINT_COLOR, d);
+
+        d.draw_line_ex(
+            raylib::ffi::Vector2 {
+                x: curve[dot].x,
+                y: curve[dot].y,
+            },
+            raylib::ffi::Vector2 {
+                x: curve[dot + 1].x,
+                y: curve[dot + 1].y,
+            },
+            POINT_R,
+            POINT_COLOR,
+        );
     }
 }
 
@@ -56,5 +84,6 @@ pub fn get_curve(bezier_curve_tangents: &[Tangent]) -> Vec<Point> {
             .unwrap(),
         );
     }
+    curve.push(bezier_curve_tangents[bezier_curve_tangents.len() - 1].p2);
     curve
 }
