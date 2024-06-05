@@ -31,20 +31,7 @@ fn main() {
         .title("Bezier Curves!")
         .build();
 
-    let mut bezier_curve_tangents: Vec<Tangent> = vec![
-        Tangent::new(
-            0f32,
-            HEIGHT as f32,
-            HEIGHT as f32 * 0.1f32,
-            HEIGHT as f32 * 0.8f32,
-        ),
-        Tangent::new(
-            WIDTH as f32 * 0.5,
-            HEIGHT as f32 * 0.1f32,
-            WIDTH as f32,
-            HEIGHT as f32,
-        ),
-    ];
+    let mut bezier_curve_tangents: Vec<Tangent> = vec![Tangent { p1: Point { x: -1.1081944, y: 350.8687 }, p2: Point { x: 28.0, y: 327.0 }, p3: Point { x: 78.0, y: 286.0 } }, Tangent { p1: Point { x: 159.85805, y: 183.04123 }, p2: Point { x: 146.0, y: 135.0 }, p3: Point { x: 131.0, y: 83.0 } }, Tangent { p1: Point { x: 78.30553, y: 273.0171 }, p2: Point { x: 77.0, y: 323.0 }, p3: Point { x: 70.0, y: 591.0 } }, Tangent { p1: Point { x: 57.37322, y: 566.86816 }, p2: Point { x: 61.0, y: 517.0 }, p3: Point { x: 69.0, y: 407.0 } }, Tangent { p1: Point { x: 91.20135, y: 390.64404 }, p2: Point { x: 117.0, y: 383.0 }, p3: Point { x: 144.0, y: 375.0 } }, Tangent { p1: Point { x: 172.0, y: 408.0 }, p2: Point { x: 173.0, y: 431.0 }, p3: Point { x: 175.81839, y: 495.82318 } }, Tangent { p1: Point { x: 162.19492, y: 557.83997 }, p2: Point { x: 207.0, y: 547.0 }, p3: Point { x: 269.0, y: 532.0 } }, Tangent { p1: Point { x: 364.07703, y: 453.62918 }, p2: Point { x: 358.0, y: 404.0 }, p3: Point { x: 352.0, y: 355.0 } }, Tangent { p1: Point { x: 265.0, y: 383.0 }, p2: Point { x: 257.0, y: 449.0 }, p3: Point { x: 248.05573, y: 522.7902 } }, Tangent { p1: Point { x: 295.1053, y: 568.94257 }, p2: Point { x: 339.0, y: 545.0 }, p3: Point { x: 405.0, y: 509.0 } }, Tangent { p1: Point { x: 481.028, y: 302.6421 }, p2: Point { x: 487.0, y: 253.0 }, p3: Point { x: 503.0, y: 120.0 } }, Tangent { p1: Point { x: 472.0, y: 103.0 }, p2: Point { x: 456.0, y: 153.0 }, p3: Point { x: 434.58527, y: 219.92105 } }, Tangent { p1: Point { x: 415.85663, y: 574.5271 }, p2: Point { x: 450.0, y: 538.0 }, p3: Point { x: 484.14337, y: 501.4729 } }, Tangent { p1: Point { x: 579.7147, y: 272.81604 }, p2: Point { x: 584.0, y: 223.0 }, p3: Point { x: 592.0, y: 130.0 } }, Tangent { p1: Point { x: 556.77295, y: 101.46069 }, p2: Point { x: 550.0, y: 151.0 }, p3: Point { x: 515.0, y: 407.0 } }, Tangent { p1: Point { x: 538.156, y: 575.8029 }, p2: Point { x: 564.0, y: 533.0 }, p3: Point { x: 589.844, y: 490.19708 } }, Tangent { p1: Point { x: 619.3622, y: 382.4076 }, p2: Point { x: 663.0, y: 358.0 }, p3: Point { x: 722.0, y: 325.0 } }, Tangent { p1: Point { x: 754.8991, y: 411.34912 }, p2: Point { x: 749.0, y: 461.0 }, p3: Point { x: 737.0, y: 562.0 } }, Tangent { p1: Point { x: 667.0, y: 556.0 }, p2: Point { x: 648.0, y: 533.0 }, p3: Point { x: 608.2065, y: 484.82886 } }, Tangent { p1: Point { x: 611.33813, y: 413.69785 }, p2: Point { x: 643.0, y: 375.0 }, p3: Point { x: 679.0, y: 331.0 } }, Tangent { p1: Point { x: 682.4137, y: 350.96548 }, p2: Point { x: 738.0, y: 368.0 }, p3: Point { x: 800.0, y: 387.0 } }, Tangent { p1: Point { x: 793.625, y: 327.34955 }, p2: Point { x: 775.0, y: 307.0 }, p3: Point { x: 721.0, y: 248.0 } }];
 
     let mut curve = get_curve(&bezier_curve_tangents);
 
